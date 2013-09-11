@@ -1,0 +1,110 @@
+---
+layout: project_page
+title: "µCLinux on Pluto 6"
+---
+
+		<p>While doing my industrial placement year during university, I was looking around for an interesting project for the big "Final year project", a rather more practical version of a dissertation. One of the lecturers wisely advised us all to call it the final seven months project, because if you left it until you got back for your final year after the placement, seven months was all you had.</p>
+		<p>Whilst doing said industrial placement at <a href="http://www.heber.co.uk/our-expertise/gaming/">Heber</a>, a company which designs and manufactures electronic controls, I was working on various new device drivers and software maintenance for the Pluto 6 gaming control board (By gaming, think <a href="http://en.wikipedia.org/wiki/Slot_machine">fruit machines</a>/<a href="http://en.wikipedia.org/wiki/Amusement_With_Prizes">amusements with prizes</a>, not Virtua fighter III), one of the company's top sellers.</p>
+
+		<table id="captionedpicture">
+			<tr><td><img src="{{ site.url }}/img/projects/uclinux-on-pluto6/pluto6-labelled.jpg" alt=""/></td></tr>
+			<tr><td>A Pluto 6 gaming control board.</td></tr>
+		</table>
+
+		<p>The main CPU on the Pluto 6 is a Freescale Coldfire 5206e microcontroller. The Coldfire line has its ancestry in the Motorola 68000 series, with, as is typical for such SoCs, some CPU instructions taken out, new ones put in, and the evolution from CPU to MCU with the addition of a smattering of integrated on chip peripherals. The 52xx Coldfire variants are 32bit chips, but with no memory management.</p>
+		<p>Around this time I discovered uCLinux, a branch of Linux for systems with no memory management unit. One of the systems with good uCLinux support at that time happened to be the Coldfire series, including the 5206e used on the Pluto 6.</p>
+		<p>The obvious answer therefore was to port uCLinux to the Pluto 6 board. Since the board was designed to go into arcade cabinets, it is chock full of IO, banks of multiplexed outputs, numerous serial ports, an FPGA with various facilities, not to mention a Fujitsu Cremson (Yes, Cremson, not Crimson) MB86290A graphics controller on a seperate plug in card. Running Linux on the board would surely present all sorts of exciting opportunities! So having convinced the powers that be of the merits of such an idea (With a lot of help from my boss at the time Marc) off I went back to Uni with a full Pluto 6 dev kit.</p>
+
+		<p>What follows is a brief overview of some highlights of the project. A more technically detailed account of the events are given in the <a href="https://dl.dropboxusercontent.com/s/tbhn0tqkkee0lqk/uclinux_on_pluto6_project_report_elangley.pdf">final year project report</a> which was the formal produce of all this practical hard work. I think the report may provide some useful background and pointers if you're trying a port yourself for the first time, along with everything you can find by following the links on the <a href="http://www.uclinux.org/">uCLinux website</a>.</p>
+
+<h2>Setting up a development environment</h2>
+		<p>The Coldfire line uses Background Debug Mode, which offers similar abilities to JTAG. If you're ever working with Coldfires and don't want to buy an expensive debugger, I'd recommend the <a href="http://sourceforge.net/apps/mediawiki/bdm/index.php?title=Main_Page">BDM Tools</a> package. I had a cheapish parallel port BDM dongle made by P&E micro, which came with the Pluto 6 dev kit. At the time that I was setting up for this project, the BDM tools came with patches for GDB, I used those to patch GDB 6.0, then wrote a .gdbinit script to reset and configure the board. I see that since then BDM Tools now provides a BDM gdbserver, so a regular build of GDB can be used with remote protocol instead.
+
+		<p>For a toolchain I went with the binaries available on <a href="http://www.uclinux.org/pub/uClinux/m68k-elf-tools/">this page</a>.</p>
+
+<h2>Getting the kernel to boot</h2>
+		<p>What followed for the next few months was a lot of sessions flapping between the pages of <a href="">Understanding the Linux Kernel</a> and <a href="">Linux Device Drivers</a>, followed by furious grepping sessions and the occasional "Ahaaah!" of realisation as I made my first forray into kernel porting. The kernel would break at various points in the boot as I had different things set up incorrectly.</p>
+
+		<p>After settling on the base addresses for the DRAM, peripherals and other chip selects, the biggest breakthrough came when I finally grokked the fundamental difference between the address space of a process in a system with an MMU and one without, and the significance of the PAGE_OFFSET value in defining that layout. On "Grown up" Linux, PAGE_OFFSET points at the address of the kernel memory (Where the kernel code is loaded to and executed from when a process enters kernel mode) in the standard virtual address space layout used by every process in the system. On uCLinux PAGE_OFFSET simply points to the physical base address of the usable memory on the system. Once I got PAGE_OFFSET right for my intended base address, and a few other issues fixed, the system finally booted all the way to a sash prompt! I ran ls, it worked! I ran ls again, it crashed.</p>
+
+		<p>Now, the board only has 1.8MB of DRAM (Well it was only designed to run bare board code developed in-house), at one point I thought it may be a bit ambitious trying to run the kernel in that, alongside a RAMFS rootfs, then try to run some binaries in whatever RAM was leftover. That said, I did indeed by that point have a heavily stripped down kernel (All networking ability configured out for example), and a barebones rootfs with a few device nodes, init and sash loaded into ~1.8 Megabytes of RAM and booted to a prompt. Sash is like busybox but smaller, with a choice selection of coreutils imitations included in it. When commands are run in sash, I presume it uses malloc. After two directory listings or so, uCLinux's power of two allocator had evidently fragmented the limited number of larger contiguous physical address regions available into too small a size to fulfill the required allocation requests and run anything else in.</p>
+
+		<p>More RAM would be needed to make anything more than a shell prompt happen on this system. Initially I tried using the video memory for the Fujitsu MB86290A, which would have given me 16MB of RAM to play with.</p>
+
+		<table id="captionedpicture">
+			<tr><td><img src="{{ site.url }}/img/projects/uclinux-on-pluto6/kernel-in-vram.jpg" alt="Output on display of a kernel loaded into video RAM on the MB86290A"/></td></tr>
+			<tr><td>The Heber Video demo halted by GDB and a uCLinux kernel code downloaded to the VRAM used by the Fujitsu graphics chip; the black section in the middle of all that code is the empty bss region. The Heber logo is on a different display layer, hence why it isn't overwritten in video memory by the kernel.</td></tr>
+		</table>
+
+		<p>On the first few attempts to run some code from the video RAM the program counter wouldn't increment correctly, made evident by watching the PC whilst stepping the first few instrucitons in GDB. I suspected the instruction cache was misconfigured, however a path of lesser resistance presented itself. I'd heard something before I finished my placement about a RAM card which could go in one of the graphics card slots, so I popped back into the office. And so there on a dusty shelf I found an apparently one-of-a-kind 8MB DRAM card.</p>
+
+		<p>An FPGA on the RAM card handled all the DRAM timings, so it just sat on chip select 0 and behaved more like a static RAM. It was battery backed as well. Just load a binary+rootfs to 0x0 through GDB, and at reset it'll boot ever after, even when power cycling. Perfect!</p>
+
+<h2>Device drivers</h2>
+<h3>Framebuffer</h3>
+		<p>I set about writing a frame buffer driver for the Fujitsu Cremson, which involved a lot of incorrectly coloured stuff on the screen at various points in the process.</p>
+
+		<table id="captionedpicture">
+			<tr>
+				<td><img src="{{ site.url }}/img/projects/uclinux-on-pluto6/fb/pink-toxic-console-screen.jpg" alt="Incorrectly coloured green on pink framebuffer console output on a Fujitsu Cremson MB86290A" width="300" height="230"/></td>
+				<td><img src="{{ site.url }}/img/projects/uclinux-on-pluto6/fb/half-blue-console.jpg" alt="Incorrectly coloured and strided green on blue framebuffer console output on top half of screen only" width="300" height="230"/></td>
+			</tr>
+			<tr>
+				<td><img src="{{ site.url }}/img/projects/uclinux-on-pluto6/fb/double-brown.jpg" alt="Incorrectly coloured and strided green  on black framebuffer console output, odd and even rows shown side by side on top half of screen only" width="300" height="230"/></td>
+				<td><img src="{{ site.url }}/img/projects/uclinux-on-pluto6/fb/grey-console-screen.jpg" alt="Incorrectly coloured blue on grey framebuffer console output" width="300" height="230"/></td>
+			</tr>
+			<tr>
+				<td><img src="{{ site.url }}/img/projects/uclinux-on-pluto6/fb/noisy-console.jpg" alt="Incorrectly coloured and noisy blueish  framebuffer console output" width="300" height="230"/></td>
+				<td><img src="{{ site.url }}/img/projects/uclinux-on-pluto6/fb/orange-text-console.jpg" alt="Incorrectly coloured orange on black framebuffer console output" width="300" height="230"/></td>
+			</tr>
+
+			<tr>
+				<td><img src="{{ site.url }}/img/projects/uclinux-on-pluto6/fb/console-working.jpg" alt="Correctly coloured uCLinux framebuffer console output" width="300" height="230"/></td>
+				<td><img src="{{ site.url }}/img/projects/uclinux-on-pluto6/fb/nanox-full-session.jpg" alt="NanoX output running on the uCLinux framebuffer" width="300" height="230"/></td>
+			</tr>
+			<tr><td colspan="2">Top 4: Toxic penguins!<br />Bottom left: Finally a correctly working framebuffer console. Bottom right: Nano-X with Nano Tetris.</td></tr>
+		</table>
+
+<h3>Multiplexed LEDs</h3>
+		<p>Next up was a driver to enable the LEDs driven by a multiplexer in the FPGA. The command:</p>
+
+		<div class="preformatted_console">
+/ # echo 0123456776543210 > /dev/lamps10
+/ # echo 0707070707070707 > /dev/lamps15
+		</div>
+
+		<p>Would produce:</p>
+
+		<table id="captionedpicture">
+			<tr><td><img src="{{ site.url }}/img/projects/uclinux-on-pluto6/multiplexed-leds.jpg" alt=""/></td></tr>
+			<tr><td>A really blurry photo of some multiplexed LED outputs.</td></tr>
+		</table>
+
+<h3>Vaccuum flourescent display</h3>
+		<div class="preformatted_console">
+/ # echo hello\ world! > /dev/vfd0
+		</div>
+		<table id="captionedpicture">
+			<tr><td><img src="{{ site.url }}/img/projects/uclinux-on-pluto6/vfd.jpg" alt="Hello world displayed on a 7 segment vaccuum flourescent display"/></td></tr>
+		</table>
+
+<h3>CompactFlash</h3>
+		<p>There is also a CPLD on the board which, among other duties, presents the registers from an inserted CompactFlash card or ATA drive on the data bus through the CPLD chip select. The uCLinux patch provides a nice canned ATA driver, which took some fiddling however to get working due to the ATA interrupt from the CPLD being shared with the graphics chip VSYNC, and the need to constantly alter the databus width in the CPLD chip select to satisfy the expected results of IN and OUTB/W/L from the rest of the IDE subsystem. Once this was working I could finally switch from the romfs to a rootfs on a CompactFlash card.</p>
+
+<h2>Project presentation</h2>
+		<p>Everyone on the degree course took turns giving a presentation on their project to each other, here are the slides from mine:</p>
+		<table id="captionedpicture">
+			<tr><td>
+				<iframe src="http://www.slideshare.net/slideshow/embed_code/23394116" width="597" height="486" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px" allowfullscreen webkitallowfullscreen mozallowfullscreen> </iframe> <div style="margin-bottom:5px"> <strong> <a href="http://www.slideshare.net/edlangley/project-presentation-23394116" title="µCLinux on Pluto 6 Project presentation" target="_blank">µCLinux on Pluto 6 Project presentation</a> </strong> from <strong><a href="http://www.slideshare.net/edlangley" target="_blank">edlangley</a></strong> </div>
+			</td></tr>
+		</table>
+
+<h2>UKUUG 2006</h2>
+		<p>My project tutor Craig suggested we do a paper on the project and present it at the <a href="http://www.ukuug.org/">UK Unix and Open Systems User Group</a> conference <a href="http://www.ukuug.org/events/linux2006/programme/abstract-CDuffy-1.shtml">that year</a>. So he massaged the report into a conference paper, and I sorted out a presentation, which I then gave in a dark lecture theatre on a sunny day in Brighton. The slides from that talk are here:</p>
+		<table id="captionedpicture">
+			<tr><td>
+				<iframe src="http://www.slideshare.net/slideshow/embed_code/23398998" width="597" height="486" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px" allowfullscreen webkitallowfullscreen mozallowfullscreen> </iframe> <div style="margin-bottom:5px"> <strong> <a href="http://www.slideshare.net/edlangley/ukuug-presentation-about" title="UKUUG presentation about µCLinux on Pluto 6" target="_blank">UKUUG presentation about µCLinux on Pluto 6</a> </strong> from <strong><a href="http://www.slideshare.net/edlangley" target="_blank">edlangley</a></strong> </div>
+			</td></tr>
+		</table>
+
+		<p>I think some of the audience may have been disappointed that I didn't know any cheats for gambling machines. I've long since switched to just saying "Yes" and nodding knowingly. I do not, in fact, know any cheats for gambling machines.</p>

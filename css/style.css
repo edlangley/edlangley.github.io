@@ -1,0 +1,354 @@
+
+/*
+Style for Ed Langley's website
+*/
+
+body {
+	margin: 0;
+	padding: 0;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 14px;
+	color: #3B3B3B;
+
+	background: #E6E6E6; /* Old browsers */
+	background: -moz-linear-gradient(left, rgba(179,190,173,1) 0%, rgba(232,230,239,1) 50%, rgba(179,190,173,1) 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, right top, color-stop(0%,rgba(179,190,173,1)), color-stop(50%,rgba(232,230,239,1)), color-stop(100%,rgba(179,190,173,1))); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(left, rgba(179,190,173,1) 0%,rgba(232,230,239,1) 50%,rgba(179,190,173,1) 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(left, rgba(179,190,173,1) 0%,rgba(232,230,239,1) 50%,rgba(179,190,173,1) 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(left, rgba(179,190,173,1) 0%,rgba(232,230,239,1) 50%,rgba(179,190,173,1) 100%); /* IE10+ */
+	background: linear-gradient(to right, rgba(179,190,173,1) 0%,rgba(232,230,239,1) 50%,rgba(179,190,173,1) 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b3bead', endColorstr='#b3bead',GradientType=1 ); /* IE6-9 */
+}
+
+h1, h2, h3, h4, h5, h6 {
+	font-weight: normal;
+	font-family: 'Abel', Arial;
+	color: #000080;
+}
+
+h1, h2, h3 {
+	margin: 0px;
+	padding: 14px 0px 7px;
+}
+
+h1 {
+	font-size: 3.2em;
+}
+
+h2 {
+	font-size: 2.2em;
+}
+
+h3 {
+	font-size: 1.6em;
+}
+
+h4, h5, h6 {
+	margin: 0px;
+	padding: 14px 0px 7px;
+}
+
+p, ul, ol {
+	margin-top: 0;
+	line-height: 180%;
+}
+
+ul, ol {
+}
+
+a {
+	text-decoration: none;
+	color: #0000E0; /* links in articles */
+}
+
+a:hover {
+}
+
+#pageouter {
+    width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 30px; /* this one for gap at the top and sides */
+
+}
+
+/* Header */
+
+#header {
+	width: 950px;
+	height: 100px;
+	margin: 0px auto;
+	padding: 0px 0px 0px 50px;
+	background: #000080;
+	font-family: 'Abel', Arial;
+	
+/*	text-shadow: 3px 3px 0px rgba(0,0,0,.8);
+	text-shadow: 1px 1px 0px rgba(0,0,0,.2); */
+	
+	box-shadow: 0px 0px 10px 5px rgba(0,0,0,.4);
+	border-radius: 8px;
+}
+
+/* Header title */
+
+#headertitle a {
+	float: left;
+	width: 500px;
+	margin: 0;
+	padding: 0;
+	color: #FFFFFF;
+	
+}
+
+#headertitle {
+	margin: 0px;
+	padding: 0px 0px 0px;
+	line-height: 100px;
+	letter-spacing: -2px;
+	text-transform: lowercase;
+	font-size: 4em;
+}
+
+/* Header links */
+
+#headerlinks {
+	float: right;
+	width: 450px;
+	height: 100px;
+	margin: 0 auto;
+	padding: 0;
+}
+
+#headerlinks ul {
+/*	float: right; */
+	margin: 0;
+	padding: 0px 0px 0px 0px;
+	list-style: none;
+	line-height: normal;
+}
+
+#headerlinks li {
+	float: left;
+}
+
+#headerlinks a {
+	display: block;
+	line-height: 50px;
+	margin-top: 25px;
+	margin-right: 10px;  /* this one for gap between hover highlighted menu links */
+	padding: 0px 10px 0px 10px;
+	text-decoration: none;
+	text-align: center;
+	text-transform: uppercase;
+	font-size: 1.5em;
+	font-weight: 300;
+	color: #FFFFFF;
+	border: none;
+	
+	border-radius: 8px;
+}
+
+#headerlinks .current_page_item a {
+	text-decoration: none;
+	color: #FFFFFF;
+}
+
+#headerlinks a:hover {
+    color: #000080;
+    background: #FFFFFF;
+}
+
+
+#headertomaingap {
+    padding-top: 20px; /* this one for gap between header and main page area */
+}
+
+/* Main page area */
+
+#mainpagearea {
+	width: 900px;
+	margin: 0 auto;
+	padding: 30px 50px;
+	background: #FFFFFF;
+	
+	box-shadow: 0px 0px 10px 5px rgba(0,0,0,.4);
+	border-radius: 8px;
+}
+
+/* Content boundary (Thinner than the main page area) */
+
+#contentboundary {
+	float: left;
+	width: 640px;
+	padding: 20px 0px 0px 0px;
+}
+
+.contentitem {
+	overflow: visible;
+	margin-bottom: 40px;
+	border-bottom: 4px solid #000080;
+}
+
+.contentitem .title {
+	padding: 7px 0px 0px 0px;
+	letter-spacing: -1px;
+	text-transform: lowercase;
+	color: #000080;
+}
+
+.contentitem .title a {
+	border: none;
+	color: #000080;
+}
+
+.contentitem .meta {
+	margin-bottom: 30px;
+	padding: 10px 0px 0px 0px;
+	text-align: left;
+	font-family: 'Abel', sans-serif;
+	font-size: 1.1em;
+	font-weight: 300;
+}
+
+.contentitem .meta .date {
+	float: left;
+}
+
+.contentitem .meta .timeagoposted {
+	float: right;
+}
+
+.contentitem .meta a {
+}
+
+.contentitem .contentitembody {
+	padding: 0px 0px 20px 0px;
+	padding-bottom: 0px; /* Gap between end of text and more/comments buttons */
+	text-align: justify;
+}
+
+.contentitem .contentitembody p {
+}
+
+.contentitem .contentitembody a:hover {
+    text-decoration: underline;
+}
+
+.links {
+/*	padding-top: 20px; Moved link buttons to outside entry div */ 
+	padding-bottom: 20px;
+	margin-bottom: 30px;
+}
+
+#captionedpicture {
+    width: 5px; /* As long as this is smaller than the picture,
+                   it will stretch around picture and shrink down
+                   the caption. */
+    margin: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    border-style: solid;
+    border-color: #000080;
+    border-width: 4px;
+    padding: 10px;
+    color: #000000;
+    font-weight: bold;
+    
+    border-radius: 8px;
+}
+
+#captionedpicture.floating {
+    float: right;
+    
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.readmorebutton {
+	display: block;
+	float: left;
+/*	width: 88px; */
+	height: 25px;
+	padding: 2px 6px 2px 6px;
+	margin-right: 10px;
+	text-align: center;
+	
+	font-family: 'Abel', sans-serif;
+	font-size: 1.1em;
+	text-transform: uppercase;
+	color: #FFFFFF;
+	background: #000080;
+	
+	border-radius: 8px;
+}
+
+.commentsbutton {
+	display: block;
+	float: left;
+/*	width: 400px; */
+	height: 25px;
+	padding: 2px 6px 2px 6px;
+	text-align: center;
+	
+	font-family: 'Abel', sans-serif;
+	font-size: 1.1em;
+	text-transform: uppercase;
+	color: #FFFFFF;
+	background: #000080;
+	
+	border-radius: 8px;
+}
+
+
+/* Footer */
+
+#footer {
+	height: 100px;
+	margin: 0 auto;
+	padding: 0px 0 15px 0;
+	font-family: 'Abel', sans-serif;
+}
+
+#footer p {
+	margin: 0;
+	padding-top: 10px;
+	letter-spacing: 1px;
+	line-height: normal;
+	font-size: 14px;
+	text-transform: uppercase;
+	text-align: center;
+	color: #000080;
+}
+
+#footer a {
+	color: #000080;
+}
+
+/* Social icons */
+#contact_table tr td {
+	padding: 8px 6px;
+}
+
+img.social_icon {
+	background: #000080;
+
+	border-radius: 8px
+}
+
+/* Terminal excerpts */
+.preformatted_console {
+	font-family: monospace;
+	font-size: 12px;
+	white-space: pre;
+	color: #00CFCF;
+	background-color: #000000;
+	text-shadow: 0px 0px 6px #00FFFF;
+	margin: 10px;
+	padding: 10px;
+
+	border-radius: 8px
+}
+
+/* Code samples */
+
+
