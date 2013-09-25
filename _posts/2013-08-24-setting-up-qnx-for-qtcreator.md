@@ -1,9 +1,12 @@
 ---
 layout: article_page
-title: "Debugging with Qt Creator on a QNX target"
+title: "Setting up a QNX image for Qt Creator"
 date: 2013-08-24 10:24:33
-summary: "Setting up Qt Creator for QNX is covered elsewhere online, such as on the Qt Project website <a href=\"http://qt-project.org/wiki/Setting-up-Qt-Creator-for-QNX\">here</a>. However, that tutorial and others like it don't tend to cover the setup needed within a non-Blackberry QNX system on the board side, which is where I will concentrate the attention here. I'll then describe the setup of Qt Creator briefly after that."
+summary: "Here is a tutorial on how to set up your QNX image to make it work with Qt Creator, then some explanation on configuring Qt Creator itself for QNX with Qt 5."
+description: "A tutorial on how to set up your QNX image to make it work with Qt Creator, then some explanation on configuring Qt Creator itself for QNX with Qt 5."
 ---
+
+Here is a tutorial on how to set up your QNX image to make it work with Qt Creator, then some explanation on configuring Qt Creator itself for QNX with Qt 5.
 
 The microkernel based RTOS, QNX, has remote debugging on the target pretty much nailed down out of the box. Various plugins in the Eclipse based Momentics IDE, which comes as part of the QNX development suite, provide one click download and debugging, as well as all sorts of application and system level profiling and analysis. So why would anyone need to use Qt Creator to debug with QNX?
 
@@ -11,7 +14,7 @@ Well, the GUI landscape on QNX is changing. The entire graphics driver stack on 
 
 So given that Qt will be the obvious choice for GUI development on QNX, developers experienced with Qt who find themselves working with the platform will likely want to stick with the Qt IDE for developing their applications. Others may have an application which is deployed across various target platforms, and don't want to switch to a whole seperate IDE every time they want to try out new features in their Qt app on the QNX build. Or perhaps you just like using Qt Creator.
 
-Setting up Qt Creator for QNX is covered elsewhere online, such as on the Qt Project website [here](http://qt-project.org/wiki/Setting-up-Qt-Creator-for-QNX). However, that tutorial and others like it don't tend to cover the setup needed within within a non-Blackberry QNX system on the board side, which is where I will concentrate the attention here. I'll then describe the setup of Qt Creator briefly after that.
+Setting up Qt Creator for QNX is covered elsewhere online, such as on the [Qt Project website](http://qt-project.org/wiki/Setting-up-Qt-Creator-for-QNX). However, that tutorial and others like it don't tend to cover the setup needed within a non-Blackberry QNX system on the board side, which is where I will concentrate the attention here. I'll then describe the setup of Qt Creator briefly after that.
 
 ## Get your target ready
 
