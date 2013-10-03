@@ -30,35 +30,35 @@ title: "JuiceBox"
 		<p>Using <a href="http://openocd.sourceforge.net/">OpenOCD</a>, some <a href="http://www.elinux.org/JuiceBox_Code_Test">test code</a> could be loaded thus:</p>
 
 		<p>Run OpenOCD as root:</p>
-		<div class="preformatted_console">
+<div class="preformatted_console"><pre>
 # openocd -f ~/openocd/doc/configs/arm7_wig.cfg
-		</div>
+</pre></div>
 		<p>If you're intending to run code from RAM on the target, enable software breakpoints (consumes one the hardware breakpoint resources so they are disabled by default):</p>
-		<div class="preformatted_console">
+<div class="preformatted_console"><pre>
 $ telnet localhost 4444
 > arm7_9 sw_bkpts enable
-		</div>
+</pre></div>
 		<p>On the other hand if you want to force use of hardware breakpoints, say if you're planning on stepping through the assembly in the boot ROM:</p>
-		<div class="preformatted_console">
+<div class="preformatted_console"><pre>
 > arm7_9 force_hw_bkpts enable
-		</div>
+</pre></div>
 		<p>Now in another console, fire up a GDB session and, assuming you've built your binary with debugging symbols, step through some source code:</p>
-		<div class="preformatted_console">
+<div class="preformatted_console"><pre>
 $ arm-elf-gdb myprogram.elf
 (gdb) target remote localhost:3333
 (gdb) load
 (gdb) b my_function_name
 (gdb) c
-		</div>
+</pre></div>
 
 		<p>Alternatively, a binary can be loaded and run using <a href="http://jtager.sourceforge.net">JTAGER</a>:</p>
-		<div class="preformatted_console">
+<div class="preformatted_console"><pre>
 # jtager
 JTAGER:> halt
 JTAGER:> idcode
 JTAGER:> memset --base=0x0C001000 --infile=myprogram.bin
 JTAGER:> restart 0x0C001000
-		</div>
+</pre></div>
 		<p>(Change the load address used, based on your linker script)</p><br />
 
 		<p>As well as video cartridges each containing low res video, an MMC cartridge is available. This is nothing but a PCB with an MMC/SD card socket on it, and cartridge pin 20 pulled down, indicating to the on board firmware (Which was uCLinux based) that an MMC card is attached and it should attempt to read and play MP3s from it. On a video ROM cartridge pin 20 is pulled high. The ever talented prpplague on the elinux wiki provided details of a <a href="http://www.elinux.org/JuiceBox_UMDCart">hack</a> for the MMC cartridge in which an xD card (Serving as a NAND flash) is connected to the cartridge connector pings on the MMC cart PCB, and pin 20 is pulled high to make it appear as a ROM cartridge instead. I couldn't find a Juicebox MMC cartridge to buy to try this, so decided to just build one from scratch, with extra space to solder an xD card onto it:</p>

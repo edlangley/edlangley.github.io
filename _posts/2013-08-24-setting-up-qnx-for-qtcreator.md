@@ -1,8 +1,8 @@
 ---
 layout: article_page
-title: "Setting up a QNX image for Qt Creator"
+title: "Setting up a QNX image for use with Qt Creator"
 date: 2013-08-24 10:24:33
-summary: "Here is a tutorial on how to set up your QNX image to make it work with Qt Creator, then some explanation on configuring Qt Creator itself for QNX with Qt 5."
+summary: "Here is a tutorial on how to set up your QNX image so that you can run and debug programs on it remotely using Qt Creator, then some explanation on configuring Qt Creator itself for QNX with Qt 5."
 description: "A tutorial on how to set up your QNX image to make it work with Qt Creator, then some explanation on configuring Qt Creator itself for QNX with Qt 5."
 ---
 
@@ -19,12 +19,13 @@ Setting up Qt Creator for QNX is covered elsewhere online, such as on the [Qt Pr
 ## Get your target ready
 
 In order to follow this guide, you'll need to be using a board (Or SoC at least) which has Screen support in QNX 6.5.0 SP1. At the time of writing, QNX's UI Early Access Program is the only way to get hold of Screen driver binaries. Joining that program gives access to a Foundry27 project which also provides Qt binaries built for Screen on QNX.
-Lets say as a pre-requisite you have built the QNX BSP for your board, added Screen drivers and libraries to it, have QNX running, can run gles2-gears and see the gears spinning on whatever display is attached to the board. In this example, I used the Texas Instruments AM335x Starter Kit board. 
+Lets say as a pre-requisite you have built the QNX BSP for your board, added Screen drivers and libraries to it, have QNX running, can run gles2-gears and see the gears spinning on whatever display is attached to the board. In this example, I used the Texas Instruments AM335x Starter Kit board.
 
 <table id="captionedpicture" markdown="1">
 	<tr><td>
 ![](/img/blog/qtcreator-debug-on-qnx/am335x-starter-kit.jpg)
 	</td></tr>
+	<tr><td>Texas Instruments AM335x Starter Kit board</td></tr>
 </table>
 
 You'll then need to add Qt to QNX. Now, your first thought might be to add the binaries to the IFS image, there are two problems with this.
@@ -59,7 +60,7 @@ By now your SD card should contain something like this:
 		bin/
 		lib/
 		sbin/
-		
+
 
 Your tree may contain more items, if you've put Screen on the SD card instead of in the IFS image for example.
 
@@ -107,7 +108,6 @@ So ensure sshd is added to the image and either runs at boot or is run manually 
 
 	/etc/services=${QNX_TARGET}/etc/services
 
-	/etc/inetd.conf={QNX_TARGET}/etc/inetd.conf
 	/etc/inetd.conf={
 	ssh stream tcp nowait root /usr/sbin/sshd in.sshd -i
 	}
@@ -137,33 +137,47 @@ So ensure sshd is added to the image and either runs at boot or is run manually 
 
 Chances are you may have some of these files in your image already, but you need to ensure some of them are in the right directories as shown. That is because when ssh connects to a target it inherits a minimal environment from the server before it starts a shell, which includes a minimal set of directories in PATH. Qt Creator seems to run some of the utilities in that state when deploying the application, but uses the shell environment to actually run the application.
 
-Boot the board, and run:
+Boot the board, and run the following commands:
 
-	/proc/boot/random -t -p
-	ssh-keygen -q -t dsa -f /etc/ssh/ssh_host_dsa_key -N ''
-	ssh-keygen -q -t rsa -f /etc/ssh/ssh_host_rsa_key -N ''
-	mkdir /root
+<div class="preformatted_console"><pre>
+# /proc/boot/random -t -p
+# ssh-keygen -q -t dsa -f /etc/ssh/ssh_host_dsa_key -N ''
+# ssh-keygen -q -t rsa -f /etc/ssh/ssh_host_rsa_key -N ''
+# mkdir /root
+</pre></div>
 
-Then at every boot thereafter, ensure the following is run:
+Then at every boot thereafter, ensure the following are run:
 
-	/proc/boot/random -t -p
-	inetd
+<div class="preformatted_console"><pre>
+# /proc/boot/random -t -p
+# inetd
+</pre></div>
 
 Random is needed otherwise sshd has trouble loading its keys. Inetd will run sshd for you when connections to port 22 are made.
 
-Test connecting to the board:
+Test connecting to the board from your development host:
 
-	ssh root@<board_ip>
+<div class="preformatted_console"><pre>
+$ ssh root@&lt;board_ip&gt;
+</pre></div>
 
-If you get a root shell prompt without entering a password, thats good (Well, it is for a development system, best not to deploy it in production that way). If you couldn't log in, perhaps ssh reports "Connection refused"?, try running `/usr/sbin/sshd` at the command line on the board and see what it says.
+If you get a root shell prompt without entering a password, thats good (Well, it is for a development system, best not to deploy it in production that way). If you couldn't log in, perhaps ssh reports "Connection refused"?, try running
+
+<div class="preformatted_console"><pre>
+# /usr/sbin/sshd
+</pre></div>
+
+at the command line on the board and see what it says.
 
 In your ssh session try running an OpenGL ES program:
 
-	# gles2-gears
+<div class="preformatted_console"><pre>
+# gles2-gears
+</pre></div>
 
 If the spinning gears appear on the display connected to the board, you're all set to move on to Qt Creator. If not, try running the same gears demo from the serial prompt on the board. If OpenGL ES works from the serial prompt but not through ssh, theres something wrong with your environment.
 
-Ensure qconn is running on the board also, as the remote execution steps for a QNX device in Qt Creator expect pdebug (Which is launched by qconn for you) to be functioning as the remote debug server on the board. 
+Ensure qconn is running on the board also, as the remote execution steps for a QNX device in Qt Creator expect pdebug (Which is launched by qconn for you) to be functioning as the remote debug server on the board.
 
 ## Setup Qt Creator
 
@@ -245,7 +259,3 @@ Or click debug and set breakpoints/step as usual:
 ![Screen grab of Qt Creator in a debugging session](/img/blog/qtcreator-debug-on-qnx/qtcreator-debugging.jpg)
 	</td></tr>
 </table>
-
-
-
-

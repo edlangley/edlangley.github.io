@@ -68,10 +68,10 @@ title: "µCLinux on Pluto 6"
 <h3>Multiplexed LEDs</h3>
 		<p>Next up was a driver to enable the LEDs driven by a multiplexer in the FPGA. The command:</p>
 
-		<div class="preformatted_console">
-/ # echo 0123456776543210 > /dev/lamps10
-/ # echo 0707070707070707 > /dev/lamps15
-		</div>
+<div class="preformatted_console"><pre>
+# echo 0123456776543210 > /dev/lamps10
+# echo 0707070707070707 > /dev/lamps15
+</pre></div>
 
 		<p>Would produce:</p>
 
@@ -81,9 +81,10 @@ title: "µCLinux on Pluto 6"
 		</table>
 
 <h3>Vaccuum flourescent display</h3>
-		<div class="preformatted_console">
-/ # echo hello\ world! > /dev/vfd0
-		</div>
+<div class="preformatted_console"><pre>
+# echo hello\ world! > /dev/vfd0
+</pre></div>
+
 		<table id="captionedpicture">
 			<tr><td><img src="{{ site.url }}/img/projects/uclinux-on-pluto6/vfd.jpg" alt="Hello world displayed on a 7 segment vaccuum flourescent display"/></td></tr>
 		</table>
