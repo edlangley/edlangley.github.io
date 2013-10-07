@@ -9,39 +9,21 @@ title: "Projects"
 	<div style="clear: both;">&nbsp;</div>
 	<div class="contentitembody">
 		<p>Here are some personal projects I've played around with over the years. I'll be gradually adding more things as I get round to it (And find stuff to add from old backups).<br />
-Roughly newest down to oldest:</p>
+Most recently updated down to oldest:</p>
 
 	</div>
 </div>
-<div class="contentitem">
-	<a href="{{ site.url }}/projects/glsl-demos/"><h2 class="title">OpenGL shading language demos</h2></a>
-	<div class="contentitembody">
-		<p>Experiments while learning all about shaders using GLSL</p>
+
+{% for post in site.posts %}
+	{% if post.layout == 'project_page' %}
+	<div class="contentitem">
+		<h2 class="title"><a href="{{ post.url }}">{{ post.title }}</a></h2>
+		<p class="meta">Last updated: <span class="date">{{ post.date | date_to_string }}</span></p>
+		<div class="contentitembody">
+			<p>{{ post.description }}</p>
+		</div>
 	</div>
-</div>
-<div class="contentitem">
-	<a href="{{ site.url }}/projects/juicebox/"><h2 class="title">JuiceBox</h2></a>
-	<div class="contentitembody">
-		<p>Experimenting with an ARM7TDMI board with JTAG interface and a 2.7 inch 240x160 colour LCD for a fiver</p>
-	</div>
-</div>
-<div class="contentitem">
-	<a href="{{ site.url }}/projects/jtag-wiggler/"><h2 class="title">JTAG wiggler</h2></a>
-	<div class="contentitembody">
-		<p>Build a quick and easy JTAG dongle for use on your parallel port (If you still have one)</p>
-	</div>
-</div>
-<div class="contentitem">
-	<a href="{{ site.url }}/projects/inventory-webapp/"><h2 class="title">Inventory PHP app</h2></a>
-	<div class="contentitembody">
-		<p>A simple general purpose inventory system web application written in PHP.</p>
-	</div>
-</div>
-<div class="contentitem">
-	<a href="{{ site.url }}/projects/uclinux-on-pluto6/"><h2 class="title">µCLinux on Pluto 6</h2></a>
-	<div class="contentitembody">
-		<p>Details on the uCLinux board port and device drivers I wrote during my final year at Uni.</p>
-	</div>
-</div>
+	{% endif %}
+{% endfor %}
 
 

@@ -1,6 +1,9 @@
 ---
 layout: project_page
 title: "JuiceBox"
+date: 2013-03-14 18:43:12
+permalink: /projects/juicebox/
+description: "Experimenting with an ARM7TDMI board with JTAG interface and a 2.7 inch 240x160 colour LCD for a fiver"
 ---
 
 		<table id="captionedpicture">
@@ -8,6 +11,8 @@ title: "JuiceBox"
 		</table>
 
 		<p>The Juicebox was a cheap media player for children that came out around 2007ish, made on behalf of Mattel by a company called Emsoft. It was a bit of a commercial flop apparently. The lack of success in the pre-teen gadget market was likely due to the videos for the device being sold separately on completely proprietary (and quite flimsy) little cartridges containing low resolution, low frame rate video and audio with a limited range of content based around kids TV shows of the day. That and for the same price at release you could go and get a Gameboy Advance and play some games instead.</p>
+
+<!--more-->
 
 		<p>So it wasn't long before the poorly selling stocks of the Juicebox were being heavily discounted in toy retailers across the land. Which was when the more technically minded among us realised we could buy an ARM7TDMI board with a colour LCD screen from Argos (Or Ebay in my case) for about £5. And the JTAG pads on the PCB inside were readily accessible...</p>
 
@@ -85,3 +90,4 @@ JTAGER:> restart 0x0C001000
 		<p>And after that... well the reality of the situation is that theres not much to be done with the Juicebox. The microcontroller in the system, a Samsung S3C44B0, has plenty of  general purpose peripherals for a low end gadget (LCD controller/PWM/GPIO etc), but nothing to handle Video playback, such as codecs or fancy media accelerators. And a 66MHz ARM7 can only do so much on its own. The ROMs on the Juiceware cartridges were likely filled with uncompressed raw interleaved video and audio data, just pumped through to the screen and speaker. Use of the on-chip peripherals is limited by what pins are brought out to usable locations on the PCB.</p>
 
 		<p>Due to these limitations, my activities on the Juicebox dropped off soon after the ELBC talk, while I was writing some code to program files from the SD card into the NAND on my home made UMDCart. However, as an educational tool for learning about ARM, a different brand of micros, and a look inside how a low end consumer electronics device might be put together, it served its purpose. Experimenting with an ARM board still has value in 2013, but the ARM7 has been somewhat superseded by the Cortex-Mx line now.</p>
+

@@ -202,14 +202,14 @@ a:hover {
 }
 
 .contentitem .meta {
-	margin-bottom: 30px;
+/*	margin-bottom: 30px;*/
 	padding: 10px 0px 0px 0px;
 	text-align: left;
 	font-family: 'Abel', sans-serif;
 	font-size: 1.1em;
 	font-weight: 300;
 }
-
+/*
 .contentitem .meta .date {
 	float: left;
 }
@@ -217,7 +217,7 @@ a:hover {
 .contentitem .meta .timeagoposted {
 	float: right;
 }
-
+*/
 .contentitem .meta a {
 }
 

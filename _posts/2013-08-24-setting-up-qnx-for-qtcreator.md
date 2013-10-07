@@ -2,13 +2,14 @@
 layout: article_page
 title: "Setting up a QNX image for use with Qt Creator"
 date: 2013-08-24 10:24:33
-summary: "Here is a tutorial on how to set up your QNX image so that you can run and debug programs on it remotely using Qt Creator, then some explanation on configuring Qt Creator itself for QNX with Qt 5."
 description: "A tutorial on how to set up your QNX image to make it work with Qt Creator, then some explanation on configuring Qt Creator itself for QNX with Qt 5."
 ---
 
 Here is a tutorial on how to set up your QNX image to make it work with Qt Creator, then some explanation on configuring Qt Creator itself for QNX with Qt 5.
 
-The microkernel based RTOS, QNX, has remote debugging on the target pretty much nailed down out of the box. Various plugins in the Eclipse based Momentics IDE, which comes as part of the QNX development suite, provide one click download and debugging, as well as all sorts of application and system level profiling and analysis. So why would anyone need to use Qt Creator to debug with QNX?
+The microkernel based RTOS, QNX, has remote debugging on the target pretty much nailed down out of the box. Various plugins in the Eclipse based Momentics IDE, included as part of the QNX development suite, provide one click download and debugging, as well as all sorts of application and system level profiling and analysis. So why would anyone need to use Qt Creator to debug with QNX?
+
+<!--more-->
 
 Well, the GUI landscape on QNX is changing. The entire graphics driver stack on the platform (libgf, io-display and Photon) is being replaced by a new framework called Screen (No relation to the GNU tool of the same name). The Photon GUI subsystem has been obsoleted by virtue of the fact that it doesn't work with Screen, and so Qt is fast becoming the default GUI solution on QNX, especially as it now has Qt 5 support for Screen.
 

@@ -14,15 +14,24 @@ heading: "Hello, I'm Ed"
 
 
 <div class="contentitem">
-	<h1 class="title">Latest Articles</h1>
+	<h1 class="title">Latest articles and project updates</h1>
 	<div style="clear: both;">&nbsp;</div>
 	{% for post in site.posts limit:3 %}
-	<h2 class="title"><a href="{{ post.url }}">{{ post.title }}</a></h2>
-		<div class="contentitembody">
-			<p>
-				{{ post.summary }}
-			</p>
-		</div>
-		<p class="links"><a href="{{ post.url }}" class="readmorebutton">Read More</a> <a href="{{ post.url }}#disqus_thread" class="commentsbutton" data-disqus-identifier="{{ post.url }}">Comments</a></p>
+		{% if post.layout == 'article_page' %}
+			<h2 class="title"><a href="{{ post.url }}">{{ post.title }}</a></h2>
+			<p class="meta"><span class="date">{{ post.date | date_to_string }}</span></p>
+			<div class="contentitembody">
+				{{ post.excerpt }}
+				<p>....</p>
+			</div>
+		{% else %}
+			<h2 class="title"><a href="{{ post.url }}">Project updated: {{ post.title }}</a></h2>
+			<p class="meta">Last updated: <span class="date">{{ post.date | date_to_string }}</span></p>
+			<div class="contentitembody">
+				<p>{{ post.description }}</p>
+			</div>
+		{% endif %}
+
+			<p class="links"><a href="{{ post.url }}" class="readmorebutton">Read More</a> <a href="{{ post.url }}#disqus_thread" class="commentsbutton" data-disqus-identifier="{{ post.url }}">Comments</a></p>
 	{% endfor %}
 </div>
