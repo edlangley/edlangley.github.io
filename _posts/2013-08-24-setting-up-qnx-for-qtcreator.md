@@ -22,9 +22,9 @@ Setting up Qt Creator for QNX is covered elsewhere online, such as on the [Qt Pr
 In order to follow this guide, you'll need to be using a board (Or SoC at least) which has Screen support in QNX 6.5.0 SP1. At the time of writing, QNX's UI Early Access Program is the only way to get hold of Screen driver binaries. Joining that program gives access to a Foundry27 project which also provides Qt binaries built for Screen on QNX.
 Lets say as a pre-requisite you have built the QNX BSP for your board, added Screen drivers and libraries to it, have QNX running, can run gles2-gears and see the gears spinning on whatever display is attached to the board. In this example, I used the Texas Instruments AM335x Starter Kit board.
 
-<table id="captionedpicture" markdown="1">
+<table id="captionedpicture">
 	<tr><td>
-![](/img/blog/qtcreator-debug-on-qnx/am335x-starter-kit.jpg)
+		<img src="{{ site.url }}/img/blog/qtcreator-debug-on-qnx/am335x-starter-kit.jpg" alt=""/>
 	</td></tr>
 	<tr><td>Texas Instruments AM335x Starter Kit board</td></tr>
 </table>
@@ -184,31 +184,31 @@ Ensure qconn is running on the board also, as the remote execution steps for a Q
 
 A Qt host SDK installation targetted for QNX is available on the EAP Foundry27 project, install the file named something like QNX-armv7le-Qt5_1_0-SDK-20130718.exe in Windows alongside the QNX SDP. Then inspect the Qt installation by launching Qt Creator and navigating to "Tools"->"Options..."->"Build & Run", you should see the ntoarm-qcc compiler, the Qt 5.1.0 built for QNX on ARM, and a QNX kit listed as autodetected under the "Compilers", "Qt Versions" and "Kits" tabs respectively.
 
-<table id="captionedpicture" markdown="1">
+<table id="captionedpicture">
 	<tr><td>
-![Screen grab of the Compilers tab in Build and Run options dialogue](/img/blog/qtcreator-debug-on-qnx/qtcreator-options-compilers.jpg)
+		<img src="{{ site.url }}/img/blog/qtcreator-debug-on-qnx/qtcreator-options-compilers.jpg" alt="Screen grab of the Compilers tab in Build and Run options dialogue"/>
 	</td></tr>
 	<tr><td>
-![Screen grab of the Qt Versions tab in Build and Run options dialogue](/img/blog/qtcreator-debug-on-qnx/qtcreator-options-qtversions.jpg)
+		<img src="{{ site.url }}/img/blog/qtcreator-debug-on-qnx/qtcreator-options-qtversions.jpg" alt="Screen grab of the Qt Versions tab in Build and Run options dialogue"/>
 	</td></tr>
 	<tr><td>
-![Screen grab of the Kits tab in Build and Run options dialogue](/img/blog/qtcreator-debug-on-qnx/qtcreator-options-kits.jpg)
+		<img src="{{ site.url }}/img/blog/qtcreator-debug-on-qnx/qtcreator-options-kits.jpg" alt="Screen grab of the Kits tab in Build and Run options dialogue"/>
 	</td></tr>
 </table>
 
 With the "QNX Qt 5.1.0 arm7le" kit ready to go, setup a QNX device in Qt Creator. In the options window, select "Devices" and click "Add...". Select "QNX Device" and click "Start Wizard". Enter `root` as the user, leave the password field blank and ensure "Password" is selected as the authentication type:
 
-<table id="captionedpicture" markdown="1">
+<table id="captionedpicture">
 	<tr><td>
-![Screen grab of the QNX device wizard](/img/blog/qtcreator-debug-on-qnx/qtcreator-qnxdevicewizard.jpg)
+		<img src="{{ site.url }}/img/blog/qtcreator-debug-on-qnx/qtcreator-qnxdevicewizard.jpg" alt="Screen grab of the QNX device wizard"/>
 	</td></tr>
 </table>
 
 After finishing the wizard, ensure the new QNX device is selected in the `Device:` drop-down, and click `Test`. You should see output in the test dialogue box similar to:
 
-<table id="captionedpicture" markdown="1">
+<table id="captionedpicture">
 	<tr><td>
-![Screen grab of the application output pane containing the expected messages](/img/blog/qtcreator-debug-on-qnx/qtcreator-qnxdevicetest.jpg)
+		<img src="{{ site.url }}/img/blog/qtcreator-debug-on-qnx/qtcreator-qnxdevicetest.jpg" alt="Screen grab of the application output pane containing the expected messages"/>
 	</td></tr>
 	<tr><td>Note the reduced pre-shell PATH mentioned earlier</td></tr>
 </table>
@@ -217,17 +217,17 @@ After finishing the wizard, ensure the new QNX device is selected in the `Device
 
 Now to create a project and build it. Do this as normal in Qt Creator, here I selected Qt Gui Application in the new project wizard, be sure to choose the QNX Qt kit for the project.
 
-<table id="captionedpicture" markdown="1">
+<table id="captionedpicture">
 	<tr><td>
-![Screen grab of choosing a kit in the new project wizard](/img/blog/qtcreator-debug-on-qnx/qtcreator-newproject-choosekit.jpg)
+		<img src="{{ site.url }}/img/blog/qtcreator-debug-on-qnx/qtcreator-newproject-choosekit.jpg" alt="Screen grab of choosing a kit in the new project wizard"/>
 	</td></tr>
 </table>
 
 For this brief run through, lets just do the usual tutorial thing plonk a label with the usual contents in the middle of the form.
 
-<table id="captionedpicture" markdown="1">
+<table id="captionedpicture">
 	<tr><td>
-![Screen grab of the form designer with hello world on it](/img/blog/qtcreator-debug-on-qnx/qtcreator-formdesign.jpg)
+		<img src="{{ site.url }}/img/blog/qtcreator-debug-on-qnx/qtcreator-formdesign.jpg" alt="Screen grab of the form designer with hello world on it"/>
 	</td></tr>
 </table>
 
@@ -237,26 +237,26 @@ Click the build button and the MOC will be invoked as usual followed by the qcc 
 
 Click the run button and, all being well, the application output pane should show the following:
 
-<table id="captionedpicture" markdown="1">
+<table id="captionedpicture">
 	<tr><td>
-![Screen grab of the application output pane containing the expected messages](/img/blog/qtcreator-debug-on-qnx/qtcreator-appoutput.jpg)
+		<img src="{{ site.url }}/img/blog/qtcreator-debug-on-qnx/qtcreator-appoutput.jpg" alt="Screen grab of the application output pane containing the expected messages"/>
 	</td></tr>
 	<tr><td>The message regarding propagateSizeHints() can be ignored apparently</td></tr>
 </table>
 
 And:
 
-<table id="captionedpicture" markdown="1">
+<table id="captionedpicture">
 	<tr><td>
-![You can see the Qt app on the board display](/img/blog/qtcreator-debug-on-qnx/hello-world.jpg)
+		<img src="{{ site.url }}/img/blog/qtcreator-debug-on-qnx/hello-world.jpg" alt="You can see the Qt app on the board display"/>
 	</td></tr>
 </table>
 
 
 Or click debug and set breakpoints/step as usual:
 
-<table id="captionedpicture" markdown="1">
+<table id="captionedpicture">
 	<tr><td>
-![Screen grab of Qt Creator in a debugging session](/img/blog/qtcreator-debug-on-qnx/qtcreator-debugging.jpg)
+		<img src="{{ site.url }}/img/blog/qtcreator-debug-on-qnx/qtcreator-debugging.jpg" alt="Screen grab of Qt Creator in a debugging session"/>
 	</td></tr>
 </table>
