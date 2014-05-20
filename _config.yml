@@ -4,3 +4,5 @@ safe: true
 lsi: false
 pygments: true
 excerpt_separator: <!--more-->
+markdown: kramdown
+
