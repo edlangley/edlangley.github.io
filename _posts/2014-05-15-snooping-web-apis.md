@@ -133,7 +133,27 @@ Firefox version 23 onwards provides a network console which shows all the detail
 	<tr><td>Note the JSON GET request selected, and the initial login POST request at the top of the list.</td></tr>
 </table>
 
-Once I realised I had this toolbox sat under my nose all along, I haven't looked back. After seeing the data, all that remains is to make use of all that lovely JSON data in your application. Which is a topic for another day.
+Once I realised I had this toolbox sat under my nose all along, I haven't looked back. 
+
+## Doin' it in code
+
+Re-writing code to do HTTP accesses from scratch makes little sense in all but the most constrained environments. Many libraries, frameworks and scripting languages provide APIs to handle all the HTTP details for you, or libcURL provides bindings for lots of languages and is used in many systems including consumer devices. I was using Qt, which provides the slightly mis-named QNetworkAccessManager, which actually provides HTTP/HTTPS accesses specifically.
+
+To try out QNetworkAccessManager I put together a little test project called [qt-netmanager-example](https://github.com/edlangley/qt-netmanager-example). The code is fairly self explanatory, and when built provides the ability to make GET and POST requests.
+
+<table id="captionedpicture">
+	<tr><td>
+		<img src="{{ site.url }}/img/blog/snooping-web-apis/network-trialproject.jpg" alt="" />
+	</td></tr>
+	<tr><td>qt-netmanager-example after making a GET request.</td></tr>
+</table>
+
+In order to use the example to access JSON data, first obtain the autologin cookie by entering `https://i.doit.im/signin` into the URL box, and the login credentials `username=myusername&password=mypassword` into the HTTP message body box, then click POST. The cookies received in the reply will then be shown in the HTTP message headers box, these don't need to be re-entered or anything, the QNetworkAccessManager will store and resend them for all further requests to the same domain while the program is running. Having logged in, make a request to retrieve some data by entering, say, `https://i.doit.im/api/tasks/today` into the URL box and click GET.
+
+If you plan on using Qt, this example code is easy to adapt for use in your own app.
+
+
+After getting at the data, all that remains is to make use of all that lovely JSON, or whatever is sent in the web API of interest, in your own application. Which is a topic for another day.
 
 <br />
 <br />
