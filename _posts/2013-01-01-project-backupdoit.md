@@ -1,12 +1,14 @@
 ---
 layout: project_page
 title: "Backupdoit"
-date: 2014-05-14 00:53:54
+date: 2014-10-29 19:23:54
 permalink: /projects/backupdoit/
 description: "A backup utility for doit.im"
 ---
 
 Backupdoit is a simple utility to back up your actions from doit.im.
+
+**Update:** Binary release of v1.0 for Windows now available! See below.
 
 [doit.im](http://doit.im/) is a web service which provides a system for implementing the [GTD](http://en.wikipedia.org/wiki/Getting_Things_Done) method of time-management.
 
@@ -22,6 +24,9 @@ The data from your doit.im account is retrieved and can be backed up to either a
 
 Backupdoit is written in QtQuick and Qt using C++. It was a convenient excuse for me to learn all about QML.
 
-Get it on github [here](https://github.com/edlangley/backupdoit), no binaries available currently I'm afraid.
+##Download
 
+Get the source code on github [here](https://github.com/edlangley/backupdoit).
+
+Get the version 1.0 binary release for Windows [here](https://dl.dropbox.com/s/nfmt44ua9gn5o6i/backupdoit-1.0-win32.zip). Just extract all files from the zip to somewhere, then run the EXE.
 
