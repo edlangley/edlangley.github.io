@@ -53,7 +53,7 @@ However, as indicated by my above list of ideas, I am more interest in practical
 
 So I set about sorting out a demonstration of such capabilities, initially running on my Linux desktop. I used Qt to abstract away any OpenGL/GLES differences down the line, as the eventual aim was to run on a lighter weight (ish) system on a chip. The result can be seen in the video below.
 
-<table id="captionedpicture">
+<table id="captionedpicture" style="max-width: 594px;">
 	<tr><td>
 		<iframe width="560" height="315" src="//www.youtube.com/embed/HJAvuDFREco" frameborder="0" allowfullscreen></iframe>
 	</td></tr>
@@ -115,7 +115,7 @@ Unfortunately, with bc-cat, specifying the buffer addresses with the IOCTLs has 
 
 And the result? Well you can see for yourself in the video below:
 
-<table id="captionedpicture">
+<table id="captionedpicture" style="max-width: 594px;">
 	<tr><td>
 		<iframe width="560" height="315" src="//www.youtube.com/embed/10Mt_orGa1E" frameborder="0" allowfullscreen></iframe>
 	</td></tr>

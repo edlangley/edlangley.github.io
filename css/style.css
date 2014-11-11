@@ -68,22 +68,20 @@ a:hover {
     width: 1000px;
     margin-left: auto;
     margin-right: auto;
-    padding: 30px; /* this one for gap at the top and sides */
+    padding: 30px 0px; /* this one for gap at the top */
 
 }
 
 /* Header */
 
 #header {
-	width: 950px;
+	width: 900px;
 	height: 100px;
+	overflow: hidden;
 	margin: 0px auto;
-	padding: 0px 0px 0px 50px;
+	padding: 0px 50px;
 	background: #000080;
 	font-family: 'Abel', Arial;
-	
-/*	text-shadow: 3px 3px 0px rgba(0,0,0,.8);
-	text-shadow: 1px 1px 0px rgba(0,0,0,.2); */
 	
 	box-shadow: 0px 0px 10px 5px rgba(0,0,0,.4);
 	border-radius: 8px;
@@ -93,7 +91,6 @@ a:hover {
 
 #headertitle a {
 	float: left;
-	width: 500px;
 	margin: 0;
 	padding: 0;
 	color: #FFFFFF;
@@ -113,14 +110,12 @@ a:hover {
 
 #headerlinks {
 	float: right;
-	width: 450px;
 	height: 100px;
 	margin: 0 auto;
 	padding: 0;
 }
 
 #headerlinks ul {
-/*	float: right; */
 	margin: 0;
 	padding: 0px 0px 0px 0px;
 	list-style: none;
@@ -135,7 +130,7 @@ a:hover {
 	display: block;
 	line-height: 50px;
 	margin-top: 25px;
-	margin-right: 10px;  /* this one for gap between hover highlighted menu links */
+	margin-left: 10px;  /* this one for gap between hover highlighted menu links */
 	padding: 0px 10px 0px 10px;
 	text-decoration: none;
 	text-align: center;
@@ -202,22 +197,13 @@ a:hover {
 }
 
 .contentitem .meta {
-/*	margin-bottom: 30px;*/
 	padding: 10px 0px 0px 0px;
 	text-align: left;
 	font-family: 'Abel', sans-serif;
 	font-size: 1.1em;
 	font-weight: 300;
 }
-/*
-.contentitem .meta .date {
-	float: left;
-}
 
-.contentitem .meta .timeagoposted {
-	float: right;
-}
-*/
 .contentitem .meta a {
 }
 
@@ -241,33 +227,41 @@ a:hover {
 }
 
 #captionedpicture {
-    width: 5px; /* As long as this is smaller than the picture,
-                   it will stretch around picture and shrink down
-                   the caption. */
-    margin: 20px;
-    margin-left: auto;
-    margin-right: auto;
-    border-style: solid;
-    border-color: #000080;
-    border-width: 4px;
-    padding: 10px;
-    color: #000000;
-    font-weight: bold;
-    
-    border-radius: 8px;
+	width: 100%;
+	margin: 20px;
+	margin-left: auto;
+	margin-right: auto;
+	border-style: solid;
+	border-color: #000080;
+	border-width: 4px;
+	padding: 10px;
+	color: #000000;
+	font-weight: bold;
+
+	border-radius: 8px;
+}
+
+#captionedpicture img {
+	width: 100%;
+	height: auto;
 }
 
 #captionedpicture.floating {
-    float: right;
-    
+	width: 5px; /* As long as this is smaller than the picture,
+		       it will stretch around picture and shrink down
+		       the caption. */
+	float: right;
     margin-left: 20px;
     margin-right: 20px;
+}
+
+#captionedpicture.floating img {
+	width: auto;
 }
 
 .readmorebutton {
 	display: block;
 	float: left;
-/*	width: 88px; */
 	height: 25px;
 	padding: 2px 6px 2px 6px;
 	margin-right: 10px;
@@ -285,7 +279,6 @@ a:hover {
 .commentsbutton {
 	display: block;
 	float: left;
-/*	width: 400px; */
 	height: 25px;
 	padding: 2px 6px 2px 6px;
 	text-align: center;
@@ -303,7 +296,7 @@ a:hover {
 /* Footer */
 
 #footer {
-	height: 100px;
+	height: 60px;
 	margin: 0 auto;
 	padding: 0px 0 15px 0;
 	font-family: 'Abel', sans-serif;
@@ -311,7 +304,7 @@ a:hover {
 
 #footer p {
 	margin: 0;
-	padding-top: 10px;
+	padding-top: 40px;
 	letter-spacing: 1px;
 	line-height: normal;
 	font-size: 14px;
@@ -390,3 +383,133 @@ pre code {
 	overflow: visible;
 	width: auto;
 }
+
+/* Sidebar */
+
+#sidebar {
+	float: right;
+	width: 230px;
+	margin: 0px;
+	padding: 30px 0px 0px 0px;
+}
+
+#sidebar ul {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+#sidebar li {
+	margin: 0;
+	padding: 0;
+}
+
+#sidebar li ul {
+	margin: 0px 0px;
+	padding-bottom: 30px;
+}
+
+#sidebar li li {
+	line-height: 35px;
+	margin: 0px 0px;
+	border-left: none;
+}
+
+#sidebar li li span {
+	display: block;
+	margin-top: -20px;
+	padding: 0;
+	font-size: 11px;
+	font-style: italic;
+}
+
+#sidebar li li a {
+	padding: 0px 0px 0px 15px;
+}
+
+#sidebar h2 {
+	height: 38px;
+	padding-left: 0px;
+	letter-spacing: -.5px;
+	font-size: 1.8em;
+}
+
+#sidebar p {
+	margin: 0 0px;
+	padding: 0px 0px 20px 0px;
+	text-align: justify;
+}
+
+#sidebar a {
+	border: none;
+}
+
+#sidebar a:hover {
+	text-decoration: underline;
+}
+
+/* Scaling based on window size */
+
+@media all and (min-width: 1190px) {
+	#header {
+		width: 1090px;
+	}
+
+	#pageouter {
+		width: 1190px;
+	}
+
+	#mainpagearea {
+		width: 1090px;
+	}
+
+	#contentboundary {
+		float: left;
+		width: 830px;
+	}
+}
+
+@media all and (max-width: 1190px) {
+	#header {
+		width: auto;
+		max-width: 1090px;
+		height: auto;
+		min-height: 100px;
+	}
+
+	#pageouter {
+		width: auto;
+    	max-width: 1190px;
+	}
+
+	#mainpagearea {
+		width: auto;
+		max-width: 1090px;
+	}
+
+	#contentboundary {
+		float: none;
+		width: auto;
+		max-width: 830px;
+	}
+
+	#sidebar {
+		float: none;
+		width: auto;
+		max-width: 830px;
+	}
+}
+
+@media all and (max-width: 650px) {
+	#header {
+		padding: 0px 20px;
+	}
+
+	#mainpagearea {
+		padding: 30px 20px;
+	}
+}
+
+
+	margin-left: 20px;
+	margin-right: 20px;

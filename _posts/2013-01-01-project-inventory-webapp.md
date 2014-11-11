@@ -6,7 +6,7 @@ permalink: /projects/inventory-webapp/
 description: "A simple general purpose inventory system web application written in PHP"
 ---
 
-<table id="captionedpicture">
+<table id="captionedpicture" style="max-width: 660px;">
 	<tr><td><img src="{{ site.url }}/img/projects/inventory-webapp/electronics-inventory-screenshot.jpg" alt="Screenshot of the inventory in a browser"/></td></tr>
 </table>
 

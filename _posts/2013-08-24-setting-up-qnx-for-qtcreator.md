@@ -198,7 +198,7 @@ A Qt host SDK installation targetted for QNX is available on the EAP Foundry27 p
 
 With the "QNX Qt 5.1.0 arm7le" kit ready to go, setup a QNX device in Qt Creator. In the options window, select "Devices" and click "Add...". Select "QNX Device" and click "Start Wizard". Enter `root` as the user, leave the password field blank and ensure "Password" is selected as the authentication type:
 
-<table id="captionedpicture">
+<table id="captionedpicture" style="max-width: 576px;">
 	<tr><td>
 		<img src="{{ site.url }}/img/blog/qtcreator-debug-on-qnx/qtcreator-qnxdevicewizard.jpg" alt="Screen grab of the QNX device wizard"/>
 	</td></tr>
@@ -206,7 +206,7 @@ With the "QNX Qt 5.1.0 arm7le" kit ready to go, setup a QNX device in Qt Creator
 
 After finishing the wizard, ensure the new QNX device is selected in the `Device:` drop-down, and click `Test`. You should see output in the test dialogue box similar to:
 
-<table id="captionedpicture">
+<table id="captionedpicture" style="max-width: 416px;">
 	<tr><td>
 		<img src="{{ site.url }}/img/blog/qtcreator-debug-on-qnx/qtcreator-qnxdevicetest.jpg" alt="Screen grab of the application output pane containing the expected messages"/>
 	</td></tr>
