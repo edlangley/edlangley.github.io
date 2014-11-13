@@ -401,7 +401,7 @@ pre code {
 
 #sidebar li {
 	margin: 0;
-	padding: 0;
+	padding: 0px 0px 0px 15px;
 }
 
 #sidebar li ul {
@@ -413,6 +413,7 @@ pre code {
 	line-height: 35px;
 	margin: 0px 0px;
 	border-left: none;
+	border-bottom: 1px solid #A0A0A0;
 }
 
 #sidebar li li span {
@@ -423,15 +424,12 @@ pre code {
 	font-style: italic;
 }
 
-#sidebar li li a {
-	padding: 0px 0px 0px 15px;
-}
-
 #sidebar h2 {
 	height: 38px;
 	padding-left: 0px;
 	letter-spacing: -.5px;
 	font-size: 1.8em;
+	text-transform: uppercase;
 }
 
 #sidebar p {
@@ -510,6 +508,3 @@ pre code {
 	}
 }
 
-
-	margin-left: 20px;
-	margin-right: 20px;
