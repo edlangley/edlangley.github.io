@@ -4,6 +4,7 @@ title: "Inventory PHP app"
 date: 2013-10-01 20:36:58
 permalink: /projects/inventory-webapp/
 description: "A simple general purpose inventory system web application written in PHP"
+tags: web
 ---
 
 <table id="captionedpicture" style="max-width: 660px;">

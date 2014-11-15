@@ -4,6 +4,7 @@ title: "Streaming textures with OpenGL, Qt and Gstreamer"
 date: 2014-10-15 17:43:22
 permalink: /projects/opengl-streaming-textures/
 description: "A demonstration of streaming video pipelines into OpenGL textures in order to process and combine them."
+tags: linux opengl qt
 ---
 
 I once worked with someone who proposed an idea of combining the IR video feed from their product with the feed from a regular visible light camera, onto a single video output, in some sort of useful way. The general consensus in the team was that there would never be enough processor cycles left in the DSP to manage that, after all the other IR video processing going on.

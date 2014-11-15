@@ -3,6 +3,7 @@ layout: article_page
 title: "Lightweight Qt 5 Windows build for app deployment"
 date: 2014-11-08 12:41:55
 description: "Build Qt for Win32 with MinGW 4.8. Reduce Qt footprint in Windows. Simplest recipe for deploying Qt applications on Windows by creating a static Qt build."
+tags: qt windows
 ---
 
 So you've written a Qt application, and naturally, you want people to use it. Well then you'd better prepare a build of it for Windows if you haven't already, because like it or not, that's what most of your likely users are going to be running (Unless its an OS specific tool).

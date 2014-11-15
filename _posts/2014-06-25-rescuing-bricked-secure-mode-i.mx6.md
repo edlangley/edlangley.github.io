@@ -3,6 +3,7 @@ layout: article_page
 title: "Rescuing a broken secure boot enabled i.MX6"
 date: 2014-06-25 00:12:52
 description: "How to use JTAG on i.MX6 in order to rescue a bricked i.MX6 chip when the on-chip bootloader won't boot. Using OpenOCD on i.MX6 to load code through GDB."
+tags: embedded gdb jtag
 ---
 
 Freescale's i.MX6 chips have rather comprehensive secure booting capabilities. When enabled, the High Assurance Boot (HAB) framework in the chip allows only signed binaries to be loaded by the on-chip boot ROM. The code signing is based on assymetric cryptographic keys, the public keys are burnt into OTP registers on the chip. Here I describe how I got the process of enabling i.MX6 secure boot wrong, then after despairing that the customer's shiny new £400 [SabreSD](http://www.freescale.com/webapp/sps/site/prod_summary.jsp?code=RDIMX6SABREBRD) board was now unbootable, managed to recover it with JTAG.

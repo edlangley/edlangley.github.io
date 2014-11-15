@@ -3,6 +3,7 @@ layout: article_page
 title: "Snooping out a web API"
 date: 2014-05-15 20:33:16
 description: "Some examples of how to snoop HTTP requests"
+tags: linux web
 ---
 
 While writing [Backupdoit](/projects/backupdoit/) I needed to access data from the doit.im server. At the time of writing this, doit.im doesn't appear to provide any documentation on their web API or encourage 3rd party usage. Therefore in order to see the data as it is downloaded from the doit.im site, so I could fetch and process that same data in my application, I had to snoop the HTTP traffic.

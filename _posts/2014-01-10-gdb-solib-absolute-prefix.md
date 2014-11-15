@@ -3,6 +3,7 @@ layout: article_page
 title: "Avoiding errors in GDB with solib-absolute-prefix"
 date: 2014-01-10 20:17:04
 description: "A short tip on avoiding errors by using solib-absolute-prefix when running dynamically linked executables remotely with a cross targeted GDB."
+tags: gdb linux
 ---
 
 Here's a quick tip on a problem I ran into recently, when I decided to debug a VOIP stack on a PowerPC box with GDB from my x86 dev PC. I found a few people on the TI E2E forum struggling with the same issue, the solution was not immediately forthcoming on Google, but was found after a quick glance at the [GDB reference card](http://www.refcards.com/docs/peschr/gdb/gdb-refcard-a4.pdf).

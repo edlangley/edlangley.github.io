@@ -3,6 +3,7 @@ layout: article_page
 title: "Setting up a QNX image for use with Qt Creator"
 date: 2013-08-24 10:24:33
 description: "How to set up a QNX image for use with Qt Creator, how to configure Qt Creator for QNX with Qt 5."
+tags: qt qnx ssh
 ---
 
 Here is a tutorial on how to set up your QNX image to make it work with Qt Creator, then some explanation on configuring Qt Creator itself for QNX with Qt 5.

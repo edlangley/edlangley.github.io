@@ -4,6 +4,7 @@ title: "Backupdoit"
 date: 2014-10-29 19:23:54
 permalink: /projects/backupdoit/
 description: "A backup utility for doit.im"
+tags: qt web
 ---
 
 Backupdoit is a simple utility to back up your actions from doit.im.
