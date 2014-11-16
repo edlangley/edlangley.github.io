@@ -3,7 +3,12 @@ layout: commented
 ---
 <div class="contentitem">
 	<h1 class="title">{{ page.title }}</h1>
-	<p class="meta">Last updated: <span class="date">{{ page.date | date_to_string }}</span></p>
+	<div class="meta">
+		<span class="date">Last updated: {{ page.date | date_to_string }}</span>
+
+		{% include sharebuttons.html %}
+
+	</div>
 	<div style="clear: both;">&nbsp;</div>
 	<div class="contentitembody">
 

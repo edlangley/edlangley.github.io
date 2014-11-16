@@ -202,6 +202,7 @@ a:hover {
 	font-family: 'Abel', sans-serif;
 	font-size: 1.1em;
 	font-weight: 300;
+	line-height: 32px; /* Value based on height of sharing buttons */
 }
 
 .contentitem .meta a {
@@ -292,7 +293,6 @@ a:hover {
 	border-radius: 8px;
 }
 
-
 /* Footer */
 
 #footer {
@@ -318,6 +318,21 @@ a:hover {
 }
 
 /* Social icons */
+
+.sharearea {
+	float: right;
+}
+
+.sharethis {
+	float: left;
+	padding: 0px 10px 0px 0px;
+	text-transform: uppercase;
+}
+
+.sharebuttons {
+	float: right;
+}
+
 #contact_table tr td {
 	padding: 8px 6px;
 }
