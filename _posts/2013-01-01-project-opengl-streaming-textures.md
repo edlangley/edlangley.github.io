@@ -1,11 +1,13 @@
 ---
 layout: project_page
 title: "Streaming textures with OpenGL, Qt and Gstreamer"
-date: 2014-10-15 17:43:22
+date: 2015-01-17 00:35:22
 permalink: /projects/opengl-streaming-textures/
 description: "A demonstration of streaming video pipelines into OpenGL textures in order to process and combine them."
 tags: linux opengl qt
 ---
+
+**Update:** There is now a link to the code on GitHub at the bottom of the page.
 
 I once worked with someone who proposed an idea of combining the IR video feed from their product with the feed from a regular visible light camera, onto a single video output, in some sort of useful way. The general consensus in the team was that there would never be enough processor cycles left in the DSP to manage that, after all the other IR video processing going on.
 
@@ -129,6 +131,8 @@ The OMAP3 is pretty old now, but then the whole point is that if you do things r
 
 Also, more shaders, and demonstrating more of the original concept ideas. To that end, it might be good to move the code to a library for use in individual demos. We'll see.
 
+##The code! Gimme the code!
 
+After writing all that description about the project, on first publishing this page I forgot to include a link to the code! Oops. The source code for the demo in the above videos is available on GitHub [here](https://github.com/edlangley/qt_gl_gst_poc).
 
 
