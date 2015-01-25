@@ -1,7 +1,7 @@
 ---
 layout: project_page
 title: "PIC microcontroller ATA library"
-date: 2015-01-17 10:39:40
+date: 2015-01-25 21:43:40
 permalink: /projects/picmicro-ata-lib/
 description: "A library for interfacing with a PATA hard disc drive or CompactFlash with FAT32 read suppport on a PIC microcontroller, or other low RAM systems"
 tags: embedded pic
