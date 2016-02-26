@@ -2,7 +2,7 @@ destination: /tmp/_site
 permalink: /blog/:year/:month/:title/
 safe: true
 lsi: false
-highlighter: pygments
+highlighter: rouge
 excerpt_separator: <!--more-->
 markdown: kramdown
 
