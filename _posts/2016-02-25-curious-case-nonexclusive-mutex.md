@@ -152,7 +152,7 @@ Either way, the code was changed to use what QNX is aware of as shared memory, r
     ....
 {% endhighlight %}
 
-And the mutex then worked fine and all was well.
+The mutex then worked correctly and all was well.
 
 So the moral of the story is that if you want to share a mutex on an ARM system, be careful where you put it (And possibly how access to it is mapped) otherwise it may silently but completely fail in it's purpose. In the worst case, on a system in which such a lock is taken infrequently, with a very slim window for a race condition, could fail after many months or even years in the field. If that were the case, it might be an idea to add some test code to work the lock at a higher frequency during development, just to be safe.
 
