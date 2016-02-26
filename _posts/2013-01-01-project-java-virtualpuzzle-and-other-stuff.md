@@ -1,9 +1,9 @@
 ---
 layout: project_page
-title: "Everything I ever forgot about Java"
+title: "Java Virtual Puzzle and some other old Java stuff"
 date: 2015-03-04 18:28:36
-permalink: /projects/forgotten-java/
-description: "And remembered again"
+permalink: /projects/java-virtualpuzzle-and-other-stuff/
+description: "A collection of Java apps and applets I wrote many years ago that still work happily"
 tags: java
 ---
 
