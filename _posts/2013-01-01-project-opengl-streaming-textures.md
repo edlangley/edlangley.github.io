@@ -52,7 +52,7 @@ Not to mention the desktop compositing window managers, which had appeared in re
 
 However, as indicated by my above list of ideas, I am more interest in practical real world uses of the technique, more likely to be utilised in embedded single purpose devices.
 
-##Proof of concept
+## Proof of concept
 
 So I set about sorting out a demonstration of such capabilities, initially running on my Linux desktop. I used Qt to abstract away any OpenGL/GLES differences down the line, as the eventual aim was to run on a lighter weight (ish) system on a chip. The result can be seen in the video below.
 
@@ -65,11 +65,11 @@ So I set about sorting out a demonstration of such capabilities, initially runni
 
 The videos are played by a Gstreamer pipeline using Fakesink as the video sink element. Fakesink has a callback into the application everytime a newly decoded video frame arrives, that buffer is placed in a queue, handled in the main Qt event thread, which places the video buffer into an OpenGL texture. The texture is then drawn in the scene using a shader which dynamically translates the YUV data into RGB during the render. That shader can be combined with one of several others to add video effects, utilise another texture as an alpha mask etc, again as shown in the video.
 
-##Doin' it on an SoC
+## Running it on an SoC
 
 I didn't want to go much further adding more ideas from the list to the demo, before seeing it run on a potentially embedded device. I chose the TI OMAP3, because it has a Gstreamer plugin with various elements for video enc/decoding using the DSP, a PowerVR SGX 530 GPU supported by OpenGLES 2.0, and a Linux SDK provided by TI which has a build of Qt and ties all the software elements together.
 
-##Porting
+## Porting
 
 At that point, I thought "Ok, simply get the TI DVSDK setup, tweak the Gstreamer pipeline created in the code, re-build the demo with the Qt qmake in the SDK, and the job is done". 
 
@@ -97,11 +97,11 @@ After adding the specific Gstreamer pipeline setup to the demo code, and buildin
 
 After a lot of effort, a 0.5 frames per second render rate was rather disappointing. However at this point the cause of concern was known to me, which was that the texture data was being loaded from the Gstreamer video frame buffer using the standard OpenGL glTexImage2D call.
 
-##Zero copy
+## Stop copying me
 
-You see, the trouble with using glTexImage2D to load the texture data, is that the whole buffer is then copied to another memory location again. On a PC, this is often reasonable, because a fancy 3D accelerator will have its own graphics memory, with a nice fast data bus to allow loading textures good 'n quick.
+You see, the trouble with using glTexImage2D to load the texture data, is that the whole buffer is then copied to another memory location again. On a PC, this is often reasonable, because a dedicated 3D accelerator will have its own graphics memory, with a nice fast data bus to allow loading textures quickly.
 
-On an OMAP3 however, the memory used by the applications processor, the DSP, and the GPU are all the same, it's the DRAM. And the data rate for the DRAM is relatively low compared to the grunt of a modern PC. So the ideal situation would be to have the DSP decode a frame of video in YUV format into a buffer in DRAM. The application running on the ARM then passes a pointer to that buffer over to the GPU, which could access the data without having to re-load it through any of the conventional OpenGL calls. A custom fragment shader running on the GPU would then do the YUV to RGB conversion during the render.
+On an OMAP3 however, the memory used by the applications processor, the DSP, and the GPU are all the same, it's the DRAM. And the data rate for the DRAM is relatively low compared to the grunt of any modern PC. So the ideal situation would be to have the DSP decode a frame of video in YUV format into a buffer in DRAM. The application running on the ARM then passes a pointer to that buffer over to the GPU, which could access the data without having to re-load it through any of the conventional OpenGL calls. A custom fragment shader running on the GPU would then do the YUV to RGB conversion during the render.
 
 <table id="captionedpicture">
 	<tr><td>
@@ -125,13 +125,13 @@ And the result? Well you can see for yourself in the video below:
 	<tr><td>Demonstration of OpenGLSL based video processing blending on a TI OMAP3 EVM using Qt, OpenGL and Gstreamer</td></tr>
 </table>
 
-##Now what
+## What's next?
 
 The OMAP3 is pretty old now, but then the whole point is that if you do things right, you can get away with doing awesome stuff on an old system. Still, I have my eye on a few rather more current System on Chips to port this to.
 
 Also, more shaders, and demonstrating more of the original concept ideas. To that end, it might be good to move the code to a library for use in individual demos. We'll see.
 
-##The code! Gimme the code!
+## The code! Gimme the code!
 
 After writing all that description about the project, on first publishing this page I forgot to include a link to the code! Oops. The source code for the demo in the above videos is available on GitHub [here](https://github.com/edlangley/qt_gl_gst_poc).
 
