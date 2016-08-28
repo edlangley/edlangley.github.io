@@ -62,7 +62,7 @@ Or this:
 
 One possible tweak to the gameplay (As much as a sliding puzzle game can be considered to have gameplay), may be to have a set time limit for each puzzle, with the timer counting down instead of up. The time text could turn red as it approaches 0, just to add a bit more tension to the proceedings perhaps.
 
-##Other old stuff
+## Other old stuff
 
 Here's an applet featuring a first pass at porting a simple 2D tile scrolling engine from C++ to Java.
 
@@ -78,7 +78,7 @@ Here's an applet featuring a first pass at porting a simple 2D tile scrolling en
 Back in 2002 this ran like a slug on an average desktop machine (about 20 seconds to scroll from one side of the map to the other), on todays machines it is pretty nippy, although the fan in my laptop does seem to ramp up to full speed. Still, who needs optimisation when you can just wait 13 years instead (I hope I don't need to tell you that I'm joking of course).
 
 
-##Getting up to date
+## Getting up to date
 
 One thing I did do during this re-cap was abandon my old library of out-dated Java reading material, and just go with one good up to date book instead. On that basis I would recommend [Java in a Nutshell, 6th Edition](http://shop.oreilly.com/product/0636920030775.do) By Benjamin J Evans & David Flanagan. Feel free to make your own recommendation (Only one!) in the comments.
 

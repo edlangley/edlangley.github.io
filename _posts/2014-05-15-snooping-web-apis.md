@@ -94,7 +94,7 @@ Response:
 
 We can see that the GET request to `https://i.doit.im/tasks/today` included the autologin cookie, and the response contained the json data we are interested in.
 
-##cURL it in
+## cURL it in
 
 In order to double check these findings, [cURL](http://curl.haxx.se/docs/manpage.html) can be used to perform the same requests and see the data in the response. Firstly, perform a login by gathering the autologin cookie into a cURL "cookie jar" with a POST request:
 

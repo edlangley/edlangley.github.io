@@ -23,7 +23,7 @@ The astute reader will be wondering at this point how a 512 byte sector can be r
 
 The rest of this page is extra detail, which may come in useful if you happen to decide to use the library in your own project.
 
-##The Hardware
+## The Hardware
 
 The circuit to connect the PIC micro to the ATA hard disc signals is based on a design used by Paul Stoffregen  in his [Using an IDE Hard Drive with a 8051 Board and 82C55 Chip](https://www.pjrc.com/tech/8051/ide/index.html) project.
 
@@ -49,7 +49,7 @@ Because I was holding off laying out a board until the other MP3 player componen
 	<tr><td>Top: Breadboard on the left with PIC ATA circuit+RS232 level shifting, ICD2 for programming+debugging at the top, on the right - a 10GB PATA hard disc drive.</td></tr>
 </table>
 
-##The Software
+## The Software
 
 The library is written in C and can be built with either Microchips current XC8 compiler, or the now obsolete and quite old Hi-Tech PICC or PICC18 (I was using version 8, which is even older). Note that the code needs no changes between these two compiler suites apart from including a different header file. This is because Microchip bought Hi-Tech and if you look deeper into the header files, PICC is referenced a lot and the compilers are pretty much the same.
 
@@ -75,7 +75,7 @@ Whilst trying to get the ATA register accesses working correctly, I wired up a l
 
 The code was then re-written with the explicitly layered approach, the ATA register access routines now call down a layer to set the 8255 port directions at the beginning of the ATA access.
 
-###Bad Signals
+### Bad Signals
 
 Once the waveforms for accesses of the low byte of the ATA data bus were looking good, I found that all the high bytes of the 16 bit data word accessed during sector data reads had consistent bit errors. Some of the logic analyser connections were moved to those data[8:15] signals, which then revealed a lot of ringing or oscillation of the logic level on one bit or another.
 
@@ -88,7 +88,7 @@ Once the waveforms for accesses of the low byte of the ATA data bus were looking
 
 This was solved in a highly technical fashion by having the demo code discussed below looping repeatedly on the PIC, then while that was gunning away, reaching over and poking the wires on the breadboard with my finger. With enough prodding suddenly good data would get read out. Must have been a poor ground or some crosstalk, after that every so often the IDE cable would need a good nudge, having discovered the sweet spot.
 
-###Wiring Test
+### Wiring Test
 
 Whilst trying to diagnose the signal noise issue, I suspected there may be a wiring fault, and so a walking ones test for all pins on the 8255 ports was added. The logic analyser probes were then connected to the same rails as the ATA hard drive IDC header on the breadboard. It was only by moving the probe wires to the rest of the ATA data pins to see the test working, that the noise was caught.
 
@@ -99,7 +99,7 @@ Whilst trying to diagnose the signal noise issue, I suspected there may be a wir
 	<tr><td>Waveform captured showing partial walking ones output.</td></tr>
 </table>
 
-###The Demo
+### The Demo
 
 There is some demonstration code in main.c, which does the following:
 
@@ -303,7 +303,7 @@ ficitur tempor efficitur sit amet metus. Sed vel placerat elit. Cras consequat q
 
 </pre></div>
 
-##Leftover MP3 stuff
+## Leftover MP3 stuff
 
 So what came of the rest of the MP3 player you ask? Well the decoder chip was to be an STMicroelectronics STA015 of which I obtained a few samples in the QFP package. That would output digital audio samples in a serial stream to a Cirrus Logic CS4334 sterio audio DAC, then from there out to the speaker connections. I had extended the [ATA circuit schematic with the extra MP3 components](https://www.dropbox.com/s/0838ueavwu8gn4s/pic-mp3-eagle-schematic.zip?dl=1). Be warned it's not tested though.
 

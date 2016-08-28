@@ -14,11 +14,11 @@ Surprisingly, the Qt project doesn't provide any redistributable library package
 
 Note that by simple I don't mean short, I will provide extra information to help you understand the process, as your build requirements may well be different to mine. Plus, other Qt building guides I found out there on the web tend to do things like instruct the reader to install the DirectX SDK, then configure a Qt build which doesn't even use it. Actually understanding whats going on helps avoid such unneeded steps, and with such understanding you may well be able to navigate your own build errors (I mention some of mine at the end).
 
-##Aim
+## Aim
 
 The plan is to build static Qt libraries, which are then statically linked into your application binary. This allows the linker the most opportunity to reduce the footprint of the final binary. A useful side effect of this tactic is that the build of Qt can be completely tailored to contain what your application requires of it. So there are some choices to make:
 
-###Toolchain
+### Toolchain
 
 For simplicity's sake, building will take place on a Windows installation. In theory the version of Windows doesn't matter, I used Windows XP in a VM because it is lighter weight than more recent versions.
 
@@ -26,7 +26,7 @@ You will need to choose which compiler you're going to use. The main choices are
 
 So the instructions that follow are for setting up and building with MinGW. For MSVC, the instructions would be a bit different, but most of the supporting information still holds true.
 
-###Graphics
+### Graphics
 
 Should Qt ask Windows to render any QGLWidget objects or QtQuick 2.0 code using OpenGL 2.0 calls, or use the ANGLE library to translate those OpenGL calls to DirectX API calls first? The only issue with OpenGL on Windows, as far as end-users are concerned, is that there is a chance they may still have the stock Windows OpenGL DLLs in use, which only support OpenGL 1.1. Calling into DirectX could avoid this issue. Use this non-diagrammatical flow-question-list to decide:
 
@@ -45,11 +45,11 @@ Number 3 relates to the assertion in the Qt documentation that ANGLE doesn't wor
 
 For my application, I'd made it easy on myself and could answer no at question 1.
 
-###Get WebKitted out
+### Get WebKitted out
 
 If your application is using any of the classes which rely on the QtWebkit module, then obviously you'll want to build Webkit in. WebKit relies on ICU for unicode support, which means you can't chop out ICU from the build, which I have done in the example below. The reason for leaving it out of the build is because the DLLs are quite large. If ICU is needed, the best bet is to build it yourself to get a smaller icudt51.dll or use the DLL binaries which mcallegari79 has posted [here](http://qt-project.org/forums/viewthread/38489).
 
-###OpenSSL
+### OpenSSL
 
 If your application uses the Qt Networking classes to make HTTPS connections, then it will be using OpenSSL. On windows at least, the Qt library appears to open the relevant OpenSSL DLLs during runtime, because if they are missing there is no DLL link error, and they aren't shown in Dependency Walker. Instead, HTTPS connections just won't work.
 
@@ -58,11 +58,11 @@ Builds of OpenSSL for windows are available [here](https://slproweb.com/products
 It only takes a few extra minutes to build OpenSSL with MinGW, so if it is needed I would recommend doing that.
 
 
-##Ready?
+## Ready?
 
 Lets keep the number of steps required down low, and the explanation on medium:
 
-###Download stuff
+### Download stuff
 
 * [Qt installer](http://qt-project.org/downloads) - Get the "Qt Online Installer for Windows"
 * [Qt source code](http://download.qt-project.org/official_releases/qt/5.1/5.1.0/single/qt-everywhere-opensource-src-5.1.0.zip)
@@ -82,13 +82,13 @@ Building OpenSSL only:
 * [MSYS shell](http://sourceforge.net/projects/mingw/files/MSYS/Base/msys-core/msys-1.0.11/MSYS-1.0.11.exe/download)
 * [OpenSSL source code](http://www.openssl.org/source/) - Choose the latest, openssl-1.0.1j.tar.gz as I write this
 
-###Install Qt
+### Install Qt
 
 Run the Qt installer, and choose to install the MinGW 4.8 build of whichever Qt version you are interested in using. I used Qt 5.1.0. If you are developing in Windows, the chances are you've already done this. If not, I would recommend installing Qt, building your application in Windows and testing it, before moving on to building against your self-built Qt. 
 
 This will also give you the MinGW 4.8 toolchain, installed by default under C:\Qt\. If you choose to install Qt under a different path, alter any later instructions referring to that path. The same goes for any other paths given in the rest of this guide.
 
-###OpenSSL build only: Install MSYS
+### OpenSSL build only: Install MSYS
 
 In the post install normalization process which appears in the command prompt window, say yes to MinGW installed, at: C:/Qt/Tools/mingw48_32
 Run the MSYS command prompt, when running mount, should then see an entry like:
@@ -137,29 +137,29 @@ Thread model: posix
 gcc version 4.8.0 (rev2, Built by MinGW-builds project)
 </pre></div>
 
-###Install Active Perl
+### Install Active Perl
 
 In the installation wizard, tick the box to add Perl to the path environment variable.
 
-###Install Python
+### Install Python
 
 Accept the defaults. The Python install directory will be added to the path environment variable.
 
-###Webkit build only: Install Ruby
+### Webkit build only: Install Ruby
 
 Accept the defaults. The Ruby install directory will be added to the path environment variable.
 
-###ANGLE build only: Install DirectX SDK
+### ANGLE build only: Install DirectX SDK
 
 Accept the defaults. If you see the S1023 error, uninstall whatever version of the Visual C++ 2010 Redistributable you have installed, through Control Panel->Add/remove programs, as explained [here](http://support.microsoft.com/kb/2728613).
 
-##Build stuff
+## Build stuff
 
-###Webkit build only: Build ICU
+### Webkit build only: Build ICU
 
 See the Qt wiki article [here](http://qt-project.org/wiki/Compiling-ICU-with-MinGW) to build ICU with MinGW, or the follow the link in the pre-amble above to get the smaller DLLs.
 
-###Optional: Build OpenSSL
+### Optional: Build OpenSSL
 
 Open an MSYS terminal, in it run the following commands:
 
@@ -173,13 +173,13 @@ make depend && make && make install
 
 Once that has finished, the DLL files that you need to distribute with your Qt binary, libeay32.dll and ssleay32.dll, are in c:\qtbuild\openssl-1.0.1j\dist\bin. The include files and import libraries for Qt to build against are in dist\include and dist\lib respectively.
 
-####Unimportant Information Alert
+#### Unimportant Information Alert
 
 Anyone arriving fresh from *nix land might look in the dist\lib directory, see .a files in there, and be thinking "Erm, I thought I was building shared libraries?". Well unlike linking against a shared object library with GCC+Binutils, where all you need at build time is the .so file, on Windows, to use a DLL, at build time the linker needs an "import library", that goes with the DLL. In Microsofts toolchain, the import library is a .lib file.
 
 When MinGW builds a Windows DLL, its still a Windows DLL, so the linker still needs an import library in order to link more code to it. The import library gets given the .a extension in the Binutils style, hence the confusion.
 
-###Build Qt
+### Build Qt
 
 Extract the Qt source code zip file to, say, C:\qtbuild\qt-everywhere-opensource-src-5.1.0\.
 
@@ -225,7 +225,7 @@ mingw32-make install
 
 After installing, you should find a set of static Qt libraries, include files, Qt build binaries (qmake.exe etc) and what have you, all under C:\Qt\5.1.0\mingw48_32_static\.
 
-##Done!
+## Done!
 
 With the new Qt build ready, you can now build your application against it, using C:\Qt\5.1.0\mingw48_32_static\bin\qmake.exe at the command line as usual. Or you could add the new build of Qt to QtCreator which would have been installed in the earlier steps, and build your application with that.
 
@@ -245,7 +245,7 @@ Well, that's that. If your shiny new build of Qt is installed and you've built y
 
 And lastly, bear in mind that although this article is based around a Windows build, the same optimisations and custom build technique could be used to reduce the footprint of a Qt application on say, an Embedded Linux device.
 
-##Not quite done?: Build issues
+## Not quite done?: Build issues
 
 As Shakespeare wrote, "The course of successful compilation never runs smooth". Or something like that. If an error brings your building of Qt5 to a screeching halt, maybe it looks like one of these below. Note that the fixes on offer here are either rather obvious, or not intended as actual fixes but will at least get the build going again and let you carry on with your day.
 

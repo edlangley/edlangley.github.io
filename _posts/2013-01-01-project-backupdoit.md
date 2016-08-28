@@ -25,7 +25,7 @@ The data from your doit.im account is retrieved and can be backed up to either a
 
 Backupdoit is written in QtQuick and Qt using C++. It was a convenient excuse for me to learn all about QML.
 
-##Download
+## Download
 
 Get the source code on github [here](https://github.com/edlangley/backupdoit).
 

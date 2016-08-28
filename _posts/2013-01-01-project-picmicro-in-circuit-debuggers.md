@@ -16,7 +16,7 @@ For that reason, I would suggest that anyone starting fresh with PIC micros down
 
 <!--more-->
 
-##ICD1
+## ICD1
 
 This is a clone of the Microchip MPLAB ICD1, based on a layout by a chap called Patrick Touzet. Details of constructing your own example are [here](http://www.piclist.com/techref/piclist/freeicd/index.htm).
 
@@ -43,9 +43,9 @@ Unfortunately, a lot of the PIC16Fxxx chips supported in MPLAB 5 are no longer i
 
 Nevertheless, what follows are some of my notes on its use, further to those in the link above.
 
-###ICD board setup
+### ICD board setup
 
-####Power supply:
+#### Power supply:
 
 JP1 controls power supply source.
 JP1 pin 1 is furthest from DC jack.
@@ -55,24 +55,24 @@ Bridge the pins:
 * 1-2: Power from DC jack
 * 2-3: Power from target
 
-####ICSP connector:
+#### ICSP connector:
 
 ICSP pin 1 is furthest from DC jack.
 Pin 1 is to MCLR on target.
 
 When powered on, ICD LED will flash. When serial port connected, LED is constant on.
 
-###Initial firmware load
+### Initial firmware load
 
 Program the PIC16F876 on the ICD using a regular PIC programmer and the ICD firmware file (C:\Program Files\MPLAB\MPL876.HEX in a default MPLAB 5.70.40 installation).
 
-###To just program a hex file using the ICD1 in MPLAB 5
+### To just program a hex file using the ICD1 in MPLAB 5
 
 Switch to ICD development mode.
 Choose File->Import, select the hex file. Data is visible by choosing Window->"Program Memory".
 Then just erase, program, verify, in the ICD window.
 
-##ICD2
+## ICD2
 
 The Microchip MPLAB ICD2 was an updated version, the proper official model came with the choice of USB as well as RS-232 connection to the development host. My version was based on the schematic provided with the assembly instructions for the "Inchworm+ ICD2" PCB, available in the past through blueroomelectronics.com (Apparently now defunct). The instructions, with schematic, for that board are [here](http://www.dipmicro.com/?datasheet=bre-inchwormplus-icd2-assembly-instructions.pdf). I was getting into [Cadsoft Eagle](http://www.cadsoftusa.com/eagle-pcb-design-software/) at the time, so I re-entered the schematic and laid it out for single sided construction, grab the Eagle files [here](https://www.dropbox.com/s/9ct9pvs9y17f62b/Inchworm_ICD2_clone_v1.0.zip?dl=1).
 
@@ -87,9 +87,9 @@ The last version of MPLAB to support the ICD2 is 8.92, only one major version be
 
 If anyone reading this did decide to build one (Unlikely) here are some notes on it's use, specific to my ICD2 board layout:
 
-###Board setup
+### Board setup
 
-####Power supply
+#### Power supply
 
 Three pin jumper J1 is furthest from serial port, controls whether ICD2 can control VCC on target, if target power is supplied through the ICSP connector. Pin 1 is furthest from serial port connector.
 
@@ -105,18 +105,18 @@ Bridge the pins:
 * 1-2: 12V VPP.
 * 2-3: 13V VPP.
 
-####ICSP connector
+#### ICSP connector
 
 ICSP pin 1 is furthest from DC jack.
 Pin 1 is to MCLR on target.
 
-###Initial firmware load
+### Initial firmware load
 
 Program [ICD2_Bootloader.hex](https://www.dropbox.com/s/1k4wtfrnz6tvae5/ICD2_Bootloader_A.hex?dl=1) into the PIC16F877A using a regular PIC programmer, before inserting into socket on the ICD2 board.
 
 In MPLAB 8, after choosing ICD2 in the programmer menu, selecting a device in the configure menu will download the appropriate firmware to the ICD2 for that device range (PIC16Fxxx, PIC18Fxx etc).
 
-##Multi socket JDM
+## Multi socket JDM
 
 This is a regular PIC programmer, powered and driven over a serial port using the well known JDM circuit. My version was adapted from the [Olimex PIC-PG2](https://www.olimex.com/Products/PIC/Programmers/PIC-PG2/), with a seperate socket for each DIP package size. No, I'm not sure why I added double width pads for the smaller sockets, ZIF sockets for those DIP sizes wouldn't need them. It was a long time ago, is all I can say.
 
@@ -131,7 +131,7 @@ The Eagle files for my layout of the JDM are [here](https://www.dropbox.com/s/oe
 
 If you use this, or buy a PIC-PG2, or any other JDM based programmer, bear in mind you'll need a real RS-232 port, which means one in a desktop PC usually. An FTDI based USB-RS232 adapter will drive the correct signals, and the LED will flash appropriately, but the 5V swing as opposed to the +/-12V on a real serial port means the VPP will be nowhere near the 12V required, so no actual programming will occur. Find an old desktop PC if necessary.
 
-###Programming software
+### Programming software
 
 For a JDM, use one of these, here are my experiences:
 
